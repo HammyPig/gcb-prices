@@ -97,7 +97,7 @@ function getChildInfo(product, row, parentID) {
             
             if (product.attributeNames[4] != "") {
               col[40 + offset] = product.attributeNames[4]; // Attribute 1 name
-              col[41 + offset] = l; // Attribute 1 value(s)
+              col[41 + offset] = m; // Attribute 1 value(s)
               col[42 + offset] = ""; // Attribute 1 visible
               col[43 + offset] = "1"; // Attribute 1 global
               col[44 + offset] = ""; // Attribute 1 default

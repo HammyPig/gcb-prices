@@ -5,7 +5,7 @@ function getProductInfo(row) {
   product.id = productInfo[0];
   product.category = productInfo[1];
   product.glassType = productInfo[2];
-  product.handling = productInfo[3];
+  product.opening = productInfo[3];
   product.height = productInfo[4];
   product.width = productInfo[5];
   
@@ -29,15 +29,20 @@ function getProductInfo(row) {
   product.attributes = attributeInfo[1];
   product.swatches = getSwatches(product);
   
-  product.name = `${product.category} ${product.height} H x ${product.width} W`;
-  product.desc = `Aluminium ${product.category} ${product.height} H x ${product.width} W\nGlass Type: ${product.glassType}\nHandling: ${product.handling}`;
-  product.shortDesc = `Aluminium ${product.category} ${product.height} H x ${product.width} W\nStandard Glass Type: ${product.glassType}\nHandling: ${product.handling}`;
+  type = product.category.slice(0, -1)
+  product.name = `${type} ${product.height} H x ${product.width} W`;
+  product.desc = `Aluminium ${type} ${product.height} H x ${product.width} W\nGlass Type: ${product.glassType}`;
+  product.shortDesc = `Aluminium ${type} ${product.height} H x ${product.width} W\nStandard Glass Type: ${product.glassType}\nOpening: ${product.opening}`;
+   
+  product.longDesc = "";
   
-  if (product.category == "Sliding Window") {
+  /*
+  if (product.category == "Sliding Windows") {
     product.longDesc = '<span style="font-weight: 400;">Our aluminium sliding window range is designed to meet all the requirements of the modern home, including security, strength, reliability and expansive views. As the name suggests, they are opened and closed by sliding the moving sash or sashes horizontally, left or right. They are perhaps the most common window type found in Australian homes.</span>';
-  } else if (product.category == "Sliding Door") {
+  } else if (product.category == "Sliding Doors") {
     product.longDesc = '<span style="font-weight: 400;">No matter what the context or purpose may be, we have an aluminium sliding door to suit. Sliding doors are one of the most common types of glass doors and form the main entrance to most backyards across Australia. They are sometimes referred to as “stacker doors” or “stacking doors”.</span>';
   }
+  */
   
   return product;
 }

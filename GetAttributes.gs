@@ -11,11 +11,11 @@ function getAttributes(product) {
   attributeNames[0] = "Colour";
   attributes[0] = colours;
   
-  var handling = product.handling.split("/");
-  if (handling.length != 1) {
-    var handling = handling.reduce((acc,curr)=> (acc[curr]=0,acc),{});
-    attributeNames[1] = "Handling";
-    attributes[1] = handling;
+  var opening = product.opening.split("/");
+  if (opening.length != 1) {
+    var opening = opening.reduce((acc,curr)=> (acc[curr]=0,acc),{});
+    attributeNames[1] = "Opening";
+    attributes[1] = opening;
   }
   
   var reveals = {
@@ -42,7 +42,7 @@ function getAttributes(product) {
   
   screens = removeNulls(screens);
   if (Object.keys(screens).length != 1) {
-    attributeNames[3] = "Screen Installed (At Additional Cost)";
+    attributeNames[3] = "Screen (10 Working Days)";
     attributes[3] = screens;
   }
 
