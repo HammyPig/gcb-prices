@@ -50,38 +50,71 @@ function legacyConvert() {
   legacyProducts[row] = new Array(10);
   row++;
   
-  // Window invisigard
-  for (var i = 6; i < 28; i++) {
-    var product = getProductInfo(i);
-    var productCode = "Custom Order"
-    var desc = "Invisi-Gard Stainless Steel Screen made for:\nAluminium " + product.name + "\nColour: ";
+  var screenTypes = {"f": "Fly Screen", "s": "7mm Diamond Grill Safety Screen", "3": "7mm Diamond Grill Safety Screen", "i": "Invisi-Gard Stainless Steel Screen"};
+  var lockTypes = {"f": "", "s": "Lock Type: Single Lock\n", "3": "Lock Type: Triple Lock (Australian Compliant)\n", "i": "Lock Type: Interlock, Top & Bottom Rollers\nand Triple Lock, "};
+  var productCode = "Custom Order";
+
+  for (var screenCode in screenTypes) {
     
-    for (var colour in colours) {
-      legacyProducts[row] = ["wi-" + product.id + "-" + colour, desc + colours[colour], productCode, "", "", "", "", "", "", 0];
-      row++;
+    for (var i = 28; i < 32; i++) {
+      var product = getProductInfo(i);
+      var price = 0
+      switch (screenCode) {
+        case "f":
+          price = product.flyScreen;
+          break;
+        case "s":
+          price = product.securityScreen;
+          break;
+        case "3":
+          price = product.tripleLock;
+          break;
+      }
+
+      var opening = product.opening;
+      opening = opening.split("/");
+      for (var j = 0; j < opening.length; j++) {
+        var desc = screenTypes[screenCode] + " to suit:\nAluminium " + product.name + "\n" + lockTypes[screenCode] + "Opening: " + opening[j] + ", Colour: ";
+        for (var colour in colours) {
+          var description = desc + colours[colour];
+          if (screenCode == "i") {
+            description += "\n(No Warranty Included)";
+          }
+          legacyProducts[row] = ["d" + screenCode + "-" + product.id + opening[j].toLowerCase() + "-" + colour, description, productCode, "", "", "", "", "", "", price];
+          row++;
+        }
+      }
     }
-  }
-  
-  legacyProducts[row] = new Array(10);
-  row++;
-  
-  // Door invisigard
-  for (var i = 28; i < 32; i++) {
-    var product = getProductInfo(i);
-    var opening = product.opening;
-    opening = opening.split("/");
-    for (var j = 0; j < opening.length; j++) {
-      var productCode = "Custom Order"
-      var desc = "Invisi-Gard Stainless Steel Screen made for:\nAluminium " + product.name + "\nLock Type: Interlock, Top & Bottom Rollers\nand Triple Lock, Opening: " + opening[j] + ", Colour: ";
-      for (var colour in colours) { 
-        legacyProducts[row] = ["di-" + product.id + opening[j].toLowerCase() + "-" + colour, desc + colours[colour] + "\n(No Warranty Included)", productCode, "", "", "", "", "", "", 0];
+    legacyProducts[row] = new Array(10);
+    row++;
+
+    if (screenCode == "3") {
+      continue;
+    }
+
+    for (var i = 6; i < 28; i++) {
+      var product = getProductInfo(i);
+      var price = 0
+      switch (screenCode) {
+        case "f":
+          price = product.flyScreen;
+          break;
+        case "s":
+          price = product.securityScreen;
+          break;
+      }
+
+      var desc = screenTypes[screenCode] + " to suit:\nAluminium " + product.name + "\nColour: ";
+      
+      for (var colour in colours) {
+        legacyProducts[row] = ["w" + screenCode + "-" + product.id + "-" + colour, desc + colours[colour], productCode, "", "", "", "", "", "", price];
         row++;
       }
     }
+    legacyProducts[row] = new Array(10);
+    row++;
   }
   
-  legacyProducts[row] = new Array(10);
-  row++;
   
   var revealSize = ["80", "100", "116", "138"];
   var revealState = {"f": "Flat Pack", "i": "Installed"};
